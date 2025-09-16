@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from .models import Users # OTP
 from django.contrib.auth.hashers import make_password
-from FAX_POD import utils
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,24 +39,14 @@ class UserSerializer(serializers.ModelSerializer):
         instance.is_deleted = validated_data.get('is_deleted', instance.is_deleted)
         instance.save()
         return instance
-
-
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
-
 
 class ForgotPasswordOtpSerializer(serializers.Serializer):
     email = serializers.EmailField()
     otp = serializers.IntegerField()
 
-
 class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
     new_password = serializers.CharField()
-
-
-# class RoleSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Roles
-#         fields = ['id', 'role_name']

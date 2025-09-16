@@ -5,15 +5,11 @@ from FAX_POD.utils import decrypt_data, encrypt_data  # adjust import as needed
 
 class AESMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        # print(f"[AESMiddleware] Incoming {request.method} request to {request.path}")
 
         if request.method in ['POST', 'PUT', 'PATCH']:
             try:
                 body_unicode = request.body.decode('utf-8')
-                # print(f"[AESMiddleware] Raw request body:\n{body_unicode}")
-
                 json_data = json.loads(body_unicode)
-                # print(f"[AESMiddleware] Parsed JSON request data:\n{json.dumps(json_data, indent=2)}")
 
                 if "payload" in json_data:
                     decrypted = decrypt_data(json_data["payload"])
@@ -27,7 +23,6 @@ class AESMiddleware(MiddlewareMixin):
                 print("[AESMiddleware] Error processing request:", e)
 
     def process_response(self, request, response):
-        # print(f"[AESMiddleware] Returning response for {request.path} with status {response.status_code}")
         try:
             if hasattr(response, 'data'):  # For DRF Response
                 encrypted = encrypt_data(response.data)

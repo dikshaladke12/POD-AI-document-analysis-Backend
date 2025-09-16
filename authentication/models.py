@@ -13,13 +13,6 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-# class Roles(BaseModel):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     role_name = models.CharField(max_length=50, null=True, blank=True)
-
-#     def __str__(self):
-#         return self.role_name
-
 class EmailTemplate(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)  # Unique identifier for the template
@@ -84,43 +77,4 @@ class Users(AbstractUser, BaseModel):
         self.otp_code = None
         self.otp_created_at = None
         self.save()
-        
-# class OTP(models.Model):
-#     OTP_TYPE_CHOICES = [
-#         ('email_verification', 'Email Verification'),
-#         ('mobile_verification', 'Mobile Verification'),
-#         ('forget_password', 'Forget Password'),
-#     ]
-
-#     user = models.ForeignKey(Users, on_delete=models.CASCADE)
-#     otp = models.CharField(max_length=6)
-#     otp_type = models.CharField(max_length=20, choices=OTP_TYPE_CHOICES)
-#     is_expired = models.BooleanField(default=False)
-#     expires_at = models.DateTimeField()
     
-#     @staticmethod
-#     def generate_otp(user, otp_type, validity_minutes=10):
-#         import random
-#         otp = f"{random.randint(1000, 9999)}"
-#         expiration_time = now() + timedelta(minutes=validity_minutes)
-#         otp_instance = OTP.objects.create(
-#             user=user,
-#             otp=otp,
-#             otp_type=otp_type,
-#             expires_at=expiration_time
-#         )
-#         return otp_instance, validity_minutes
-    
-# class Modules(BaseModel):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     module_name = models.CharField(max_length=255, null=True, blank=True)
-#     def __str__(self):
-#         return self.module_name
-
-# class ModuleRolePermissions(BaseModel):
-#     module_id = models.ForeignKey(Modules, on_delete=models.CASCADE,null=True)
-#     # role_id = models.ForeignKey(Roles, on_delete=models.CASCADE,null=True)
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     can_add = models.BooleanField(null=True)
-#     can_edit = models.BooleanField(null=True)
-#     can_view = models.BooleanField(null=True)
