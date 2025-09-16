@@ -9,7 +9,7 @@ from drf_yasg import openapi
 urlpatterns = [
    path('admin/', admin.site.urls),
    path('provider/',include("provider.urls")),
-   # path('auth/',include("authentication.urls")),
+   path('auth/',include("authentication.urls")),
    # path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Swagger UI
 ]
 

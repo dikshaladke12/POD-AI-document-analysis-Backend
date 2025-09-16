@@ -11,7 +11,7 @@ services:
     ports:
       - "9076:9076"
     env_file: 
-      - env/.env.stage
+      - env/.env.local
   #   depends_on:
   #     - redis
 
